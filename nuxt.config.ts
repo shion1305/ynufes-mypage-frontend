@@ -19,7 +19,8 @@ export default defineNuxtConfig({
       bodyAttrs: {
         class: 'test'
       }
-    }
+    },
+    pageTransition: { name: 'page', mode: 'out-in' }
   },
   typescript: {
     shim: false,
