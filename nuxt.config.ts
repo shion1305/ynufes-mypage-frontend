@@ -73,7 +73,7 @@ export default defineNuxtConfig({
       baseURL: 'http://localhost:1306',
       callbackURL: 'http://localhost:1306/api/v1/auth/line/callback',
       lineClientID: process.env.LINE_CLIENT_ID,
-      enableRouting: false
+      enableRouting: true
     }
   }
 })

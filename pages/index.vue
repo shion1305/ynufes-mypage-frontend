@@ -1,21 +1,30 @@
 <script lang="ts" setup>
-import { onBeforeMount, ref } from 'vue'
+import { useOrg, type AccessibleOrg } from '~/composables/useOrg'
 useHead({ title: 'top' })
 
-const showLogin = ref(false)
-const showOrgs = ref(false)
-onBeforeMount(() => {
-  console.log(document.cookie)
-})
+const accessibleOrgs: AccessibleOrg[] | null =
+  await useOrg().getAccessibleOrgs()
+const orgInfo: OrgInfo | null =
+  accessibleOrgs != null
+    ? await useOrg().getOrgInfo(accessibleOrgs[0].id)
+    : null
 </script>
 <template>
-  <main class="main-content-wrapper"></main>
+  <main class="main-content-wrapper">
+    <div v-if="!accessibleOrgs">
+      <p class="mx-auto w-fit mt-4 xl:ml-8">
+        アクセスできる企画団体が存在しません
+      </p>
+    </div>
+    <div v-else>
+      <pre class="util-color-bg-main w-fit p-5 mx-auto mt-4">{{
+        'アクセスできる企画団体一覧: ' +
+        JSON.stringify(accessibleOrgs, null, '\t')
+      }}</pre>
+      <pre class="util-color-bg-main w-fit p-5 mx-auto mt-4">{{
+        'デフォルトの企画団体情報: ' + JSON.stringify(orgInfo, null, '\t')
+      }}</pre>
+    </div>
+  </main>
 </template>
-<style>
-.main-content-wrapper {
-  margin: 20px 40px;
-}
-.count-down {
-  margin: 40px 0;
-}
-</style>
+<style></style>

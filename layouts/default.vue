@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import AppSidebar from './AppSidebar.vue'
+import AppSidebar from '~/layouts/AppSidebar.vue'
 
 useHead({
   title: 'Top',
   titleTemplate: (title) => `${title} | YNU-fes`
 })
+const user = await useLogin().getCurrentUser()
 </script>
 <template>
   <div id="dashboard-root-frame">
